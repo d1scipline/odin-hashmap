@@ -119,7 +119,7 @@ class LinkedList {
   }
 
   values() {
-        let result = [];
+    let result = [];
 
     if (!this.head) {
       return result;
@@ -133,7 +133,6 @@ class LinkedList {
     } while (currentNode != null);
 
     return result;
-
   }
 
   entries() {
@@ -153,7 +152,7 @@ class LinkedList {
   }
 }
 
-class HashMap {
+export class HashMap {
   constructor(capacity = 16, loadfactor = 0.75) {
     this.capacity = capacity;
     this.loadfactor = loadfactor;
@@ -249,7 +248,7 @@ class HashMap {
     return result;
   }
 
-    values() {
+  values() {
     let result = [];
     for (let i = 0; i < this.capacity; i++) {
       if (this.buckets[i] !== undefined) {
@@ -267,16 +266,18 @@ class HashMap {
       }
     }
     return result;
-
   }
-  
+
   resize() {
     let entries = this.entries();
     this.capacity = this.capacity * 2;
-    this.buckets = [];
+    this.clear();
     for (let i = 0; i < entries.length; i++) {
       this.set(entries[i][0], entries[i][1]);
     }
   }
-}
 
+  loadlevel() {
+    return this.length() / this.capacity;
+  }
+}
