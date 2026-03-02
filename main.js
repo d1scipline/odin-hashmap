@@ -117,6 +117,24 @@ class LinkedList {
 
     return result;
   }
+
+  values() {
+        let result = [];
+
+    if (!this.head) {
+      return result;
+    }
+
+    let currentNode = this.head;
+
+    do {
+      result.push(currentNode.value);
+      currentNode = currentNode.nextNode;
+    } while (currentNode != null);
+
+    return result;
+
+  }
 }
 
 class HashMap {
@@ -206,11 +224,22 @@ class HashMap {
     let result = [];
     for (let i = 0; i < this.capacity; i++) {
       if (this.buckets[i] !== undefined) {
-        result += this.buckets[i].keys();
+        result = result.concat(this.buckets[i].keys());
       }
     }
     return result;
   }
+
+    values() {
+    let result = [];
+    for (let i = 0; i < this.capacity; i++) {
+      if (this.buckets[i] !== undefined) {
+        result = result.concat(this.buckets[i].values());
+      }
+    }
+    return result;
+  }
+
 }
 
 const hashmap = new HashMap(5);
@@ -223,5 +252,5 @@ hashmap.set("stuff4", "value");
 hashmap.set("stuff5", "value");
 
 console.log(hashmap.buckets);
-console.log(hashmap.keys());
+console.log(hashmap.values());
 //TODO FIX KEYS METHOD
