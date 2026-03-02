@@ -186,7 +186,10 @@ class HashMap {
       this.buckets[hashValue] = new LinkedList();
     }
 
-    this.buckets[hashValue].append(key, value);
+    this.size += this.buckets[hashValue].append(key, value);
+    if (this.length() > this.capacity * this.loadfactor) {
+      this.resize();
+    }
   }
 
   get(key) {
@@ -266,4 +269,14 @@ class HashMap {
     return result;
 
   }
+  
+  resize() {
+    let entries = this.entries();
+    this.capacity = this.capacity * 2;
+    this.buckets = [];
+    for (let i = 0; i < entries.length; i++) {
+      this.set(entries[i][0], entries[i][1]);
+    }
+  }
 }
+
