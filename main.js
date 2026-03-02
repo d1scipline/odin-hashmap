@@ -100,6 +100,23 @@ class LinkedList {
 
     return false;
   }
+
+  keys() {
+    let result = [];
+
+    if (!this.head) {
+      return result;
+    }
+
+    let currentNode = this.head;
+
+    do {
+      result.push(currentNode.key);
+      currentNode = currentNode.nextNode;
+    } while (currentNode != null);
+
+    return result;
+  }
 }
 
 class HashMap {
@@ -170,6 +187,41 @@ class HashMap {
       return this.buckets[hashValue].remove(key);
     }
   }
+
+  length() {
+    let sum = 0;
+    for (let i = 0; i < this.capacity; i++) {
+      if (this.buckets[i] !== undefined) {
+        sum += this.buckets[i].length;
+      }
+    }
+    return sum;
+  }
+
+  clear() {
+    this.buckets = [];
+  }
+
+  keys() {
+    let result = [];
+    for (let i = 0; i < this.capacity; i++) {
+      if (this.buckets[i] !== undefined) {
+        result += this.buckets[i].keys();
+      }
+    }
+    return result;
+  }
 }
 
-const hashmap = new HashMap();
+const hashmap = new HashMap(5);
+
+hashmap.set("stuff0", "value");
+hashmap.set("stuff1", "value");
+hashmap.set("stuff2", "value");
+hashmap.set("stuff3", "value");
+hashmap.set("stuff4", "value");
+hashmap.set("stuff5", "value");
+
+console.log(hashmap.buckets);
+console.log(hashmap.keys());
+//TODO FIX KEYS METHOD
