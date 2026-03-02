@@ -135,6 +135,22 @@ class LinkedList {
     return result;
 
   }
+
+  entries() {
+    let result = [];
+    if (!this.head) {
+      return result;
+    }
+
+    let currentNode = this.head;
+
+    do {
+      result.push([currentNode.key, currentNode.value]);
+      currentNode = currentNode.nextNode;
+    } while (currentNode != null);
+
+    return result;
+  }
 }
 
 class HashMap {
@@ -240,17 +256,14 @@ class HashMap {
     return result;
   }
 
+  entries() {
+    let result = [];
+    for (let i = 0; i < this.capacity; i++) {
+      if (this.buckets[i] !== undefined) {
+        result = result.concat(this.buckets[i].entries());
+      }
+    }
+    return result;
+
+  }
 }
-
-const hashmap = new HashMap(5);
-
-hashmap.set("stuff0", "value");
-hashmap.set("stuff1", "value");
-hashmap.set("stuff2", "value");
-hashmap.set("stuff3", "value");
-hashmap.set("stuff4", "value");
-hashmap.set("stuff5", "value");
-
-console.log(hashmap.buckets);
-console.log(hashmap.values());
-//TODO FIX KEYS METHOD
